@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- Patient Details -->
+        <!--     <record id="report_patient_details" model="ir.actions.report"> -->
+        <!--         <field name="name">Patient Details</field> -->
+        <!--         <field name="res_model">hospital.patient</field> -->
+        <!--         <field name="report_type">qweb-pdf</field> -->
+        <!--         <field name="report_name">om_hospital.report_patient_detail</field> -->
+        <!--         <field name="report_file">om_hospital.report_patient_detail</field> -->
+        <!--         <field name="binding_model_id" ref="model_hospital_patient"/> -->
+        <!--         <field name="binding_type">report</field> -->
+        <!--     </record> -->
+
+        <!--      <record id="report_patient_card" model="ir.actions.report"> -->
+        <!--         <field name="name">Patient Card</field> -->
+        <!--         <field name="res_model">hospital.patient</field> -->
+        <!--         <field name="report_type">qweb-pdf</field> -->
+        <!--         <field name="report_name">om_hospital.report_patient_id_card</field> -->
+        <!--         <field name="report_file">om_hospital.report_patient_id_card</field> -->
+        <!--         <field name="binding_model_id" ref="model_hospital_patient"/> -->
+        <!--         <field name="binding_type">report</field> -->
+        <!--     </record> -->
+
+
+        <!--      <record id="report_patient_card_xls" model="ir.actions.report"> -->
+        <!--         <field name="name">Patient Card Details</field> -->
+        <!--         <field name="res_model">hospital.patient</field> -->
+        <!--         <field name="report_type">xlsx</field> -->
+        <!--         <field name="report_name">om_hospital.report_patient_id_card_xls</field> -->
+        <!--         <field name="report_file">om_hospital.report_patient_id_card_xls</field> -->
+        <!--         <field name="binding_model_id" ref="model_hospital_patient"/> -->
+        <!--         <field name="binding_type">report</field> -->
+        <!--     </record> -->
+
+        <record id="report_patient_appointments_xls" model="ir.actions.report">
+            <field name="name">Patient Appointment Excel</field>
+            <field name="model">appointment.report.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">om_hospital.report_patient_appointment_xlsx</field>
+            <field name="report_file">om_hospital.report_patient_appointment_xlsx</field>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <!-- Form -->
+        <record id="view_report_appointment_form" model="ir.ui.view">
+            <field name="name">appointment.report.wizard.form</field>
+            <field name="model">appointment.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Print Appointments">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient_id" />
+                            </group>
+                            <group>
+                                <field name="date_from" />
+                                <field name="date_to" />
+                            </group>
+                        </group>
+
+                        <footer>
+                            <button name="action_print_report" string="Print PDF" type="object" class="btn btn-primary"/>
+                            <button name="action_print_excel_report" string="Print Excel" type="object" class="btn btn-primary"/>
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_report_appointment" model="ir.actions.act_window">
+            <field name="name">Appointment</field>
+            <field name="res_model">appointment.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_report_appointment_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hospital_appointment_reports" name="Print Reports" action="action_report_appointment" parent="hospital_appointment_menu" sequence="30"/>
+
+
+    </data>
+</odoo>
